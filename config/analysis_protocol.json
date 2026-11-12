@@ -1,0 +1,187 @@
+{
+  "scope": "Five main models and supporting analyses reported in the current paper; frozen prepared-input reproduction.",
+  "periods": {
+    "initial_fit_before": "2024-04-01",
+    "validation": [
+      "2024-04",
+      "2024-05",
+      "2024-06"
+    ],
+    "primary": [
+      "2024-07",
+      "2026-09"
+    ],
+    "later": [
+      "2025-01",
+      "2026-09"
+    ],
+    "holdout": [
+      "2026-10-01",
+      "2026-11-01"
+    ],
+    "holdout_end_exclusive": true
+  },
+  "information": {
+    "historical": "Expand history at month boundaries; exclude the entire forecast month.",
+    "validation": "Core count models and joint scales use fixed pre-April 2024 history; Elo uses successive month-start snapshots.",
+    "holdout": "All fits, calibration, counts and ratings frozen before October 1; no October updates.",
+    "update_comparison": "Historical period only; read counts before each event and update after it.",
+    "identifier_linkage": "The two frozen inputs use the same player-surrogate mapping; source mapping is excluded."
+  },
+  "models": {
+    "logistic": {
+      "C": 1.0,
+      "intercept": true,
+      "solver": "lbfgs",
+      "max_iter": 200
+    },
+    "pair": {
+      "k_grid": [
+        2,
+        5,
+        10,
+        20,
+        50,
+        100
+      ],
+      "selected_k": 50
+    },
+    "overall": {
+      "k_o": 20,
+      "k_s": 1000000000.0,
+      "record_coefficient": 1.0
+    },
+    "archetype_specific": {
+      "k_o_grid": [
+        10,
+        20,
+        50,
+        100
+      ],
+      "k_s_grid": [
+        5,
+        10,
+        20,
+        50
+      ],
+      "selected": [
+        20,
+        50
+      ]
+    },
+    "joint": {
+      "theta_scale": 1.0,
+      "base_scales": [
+        0.28,
+        0.45,
+        0.28
+      ],
+      "search": "Base and six settings, halving or doubling one scale at a time.",
+      "selected_scales": [
+        0.28,
+        0.45,
+        0.14
+      ],
+      "C": 1.0,
+      "intercept": false,
+      "tol": 1e-08,
+      "max_iter": 10000,
+      "require_convergence": true
+    }
+  },
+  "scoring": {
+    "primary": "Equal-tournament mean of match log loss (natural logarithms).",
+    "supporting": [
+      "match-weighted log loss",
+      "match-weighted Brier score",
+      "match-weighted ten-bin calibration RMSE",
+      "mean absolute probability distance from 0.5"
+    ],
+    "calibration_bins": "Ten equal-width bins on [0,1], final bin includes 1.",
+    "gain": "Reference loss minus model loss; positive favors model.",
+    "stored_precision": "Historical forecast probabilities and losses are independently rounded to six decimals; October uses full precision. Weight sensitivity uses full precision and reconciles rounding."
+  },
+  "uncertainty": {
+    "seed": 20261011,
+    "draws": 5000,
+    "historical": "Moving blocks of four calendar months, without wrapping; draw ceil(number of months/4) blocks with replacement; do not truncate the final block. Weight represented tournaments equally.",
+    "october": "Resample all 396 tournaments independently; indicative intervals conditional on fitted models.",
+    "endpoints": "Sorted replicates at zero-based indices 125 and 4875. Existing reversed contrasts reverse signs and endpoints; direct gains can differ by one order statistic.",
+    "limits": "Pointwise intervals omit selection uncertainty. October resampling omits repeated-player and shared-fit dependence."
+  },
+  "history_depth": {
+    "type": "Exploratory subgroup analysis of unchanged forecasts",
+    "minimum_prior_matches": [
+      "0",
+      "1-9",
+      "10-49",
+      "50+"
+    ],
+    "additional_partition": [
+      "both unseen",
+      "one unseen",
+      "neither unseen"
+    ],
+    "counts": "Prior eligible appearances only; outcome-independent; both overall and current-archetype counts; freeze before month, including October.",
+    "comparisons": [
+      "overall vs pair",
+      "archetype-specific vs pair",
+      "archetype-specific vs overall"
+    ],
+    "resampling": "Use common draws from the full calendar/event set. Preserve group-empty months/events; report empty-support replicates.",
+    "interpretation": "Groups can contain different tournaments. Gains are not additive, causal experience effects or tests of between-group differences.",
+    "both_unseen_tolerance": "One stored probability unit (1e-6) plus floating-point tolerance."
+  },
+  "weight_sensitivity": {
+    "grid": [
+      0.0,
+      0.5,
+      0.75,
+      1.0,
+      1.25,
+      1.5
+    ],
+    "selection": "Lowest match-weighted April\u2013June validation loss with fixed pre-April fit; ties prefer nearest one, then smaller weight.",
+    "selected": 1.0,
+    "timing": "Write selection before loading October or scoring evaluation periods.",
+    "fixed": "Keep pair smoothing and original overall-record implementation unchanged.",
+    "checks": "Weight 0 reproduces pair forecasts; weight 1 reproduces overall forecasts; removing October target outcomes leaves every October forecast unchanged."
+  },
+  "recalibration": {
+    "model": "joint",
+    "fit_months": [
+      "2024-07",
+      "2024-08",
+      "2024-09",
+      "2024-10",
+      "2024-11",
+      "2024-12"
+    ],
+    "method": "Two-parameter logistic recalibration of saved probabilities; frozen for later historical and October evaluation."
+  },
+  "elo": {
+    "initial_rating": 1500,
+    "K_grid": [
+      8,
+      16,
+      24,
+      32,
+      48,
+      64
+    ],
+    "coefficient_grid": [
+      0.25,
+      0.5,
+      0.75,
+      1.0,
+      1.25,
+      1.5
+    ],
+    "selected": [
+      16,
+      1.0
+    ],
+    "selection_metric": "Tournament-weighted validation log loss.",
+    "updates": "Batch event update using pre-event ratings; read month-start snapshots for scored forecasts; exclude October outcomes."
+  }
+}

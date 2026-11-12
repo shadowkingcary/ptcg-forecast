@@ -1,0 +1,15 @@
+# The only datasets retained in this repository are the two frozen unified inputs.
+data/*
+!data/unified/
+data/unified/*
+!data/unified/matches.csv.gz
+!data/unified/matches_oct2026_holdout.csv.gz
+# Working data and generated outputs belong in PTCG_WORK_DIR outside the repository.
+figures/
+results/
+raw/
+private/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
