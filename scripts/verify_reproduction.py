@@ -61,6 +61,14 @@ def verify():
     weight=json.loads((P/'player_record_weight/summary.json').read_text())
     assert weight['selection']['weight']==expected['weight_selected']
     assert weight['october_outcomes_removed_prediction_identity']
+    tuning=json.loads((P/'tuning_objective/summary.json').read_text())
+    assert tuning['all_reported_forecasts_and_comparisons_unchanged']
+    assert tuning['selection']['changed_models']==[] and tuning['refitted_evaluation_models']==[]
+    assert tuning['selection']['settings']['match']==tuning['selection']['settings']['tournament']
+    assert tuning['paper_results_sha256']==sha(P/'full_october_2026_run/paper_results.json')
+    tuning_manifest=json.loads((P/'tuning_objective/manifest.json').read_text())
+    for name,digest in tuning_manifest['output_sha256'].items():
+        assert sha(P/'tuning_objective'/name)==digest, 'Tuning audit output changed: '+name
     history=json.loads((P/'history_depth/summary.json').read_text())
     assert history['validation']['all_sample_scores_and_intervals_match_existing_ledger']
     with (P/'FINAL_rating_benchmarks_results.csv').open() as f:
@@ -75,11 +83,12 @@ def verify():
             'reference_sha256':sha(REFERENCE),'tolerance':1e-10,'tables_exact':tables==expected['tables'],
             'verified_periods':['primary','later','october'],'verified_models':5,
             'selected_weight':weight['selection']['weight'],'october_outcome_exclusion':True,
+            'tuning_objectives_select_identical_settings':True,
             'figures':{n:sha(FIGURES/n) for n in figures},'errors':errors}
     path=P/'full_october_2026_run/reproduction_verification.json'
     path.write_text(json.dumps(report,indent=2)+'\n')
     if errors: raise AssertionError('Reproduction mismatch:\n'+'\n'.join(errors[:30]))
-    print('PASS: dataset counts, five models in all periods, six exact tables, Elo, weight and history-depth checks; four figures present')
+    print('PASS: dataset counts, five models in all periods, six exact tables, Elo, weight, tuning-objective and history-depth checks; four figures present')
 
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)

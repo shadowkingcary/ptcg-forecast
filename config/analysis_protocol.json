@@ -183,5 +183,27 @@
     ],
     "selection_metric": "Tournament-weighted validation log loss.",
     "updates": "Batch event update using pre-event ratings; read month-start snapshots for scored forecasts; exclude October outcomes."
+  },
+  "tuning_objective_sensitivity": {
+    "question": "Do selections and later-period comparisons change when the original validation grids use equal-tournament rather than equal-match loss?",
+    "training": "Fixed history strictly before April 1, 2024.",
+    "validation": [
+      "2024-04",
+      "2024-05",
+      "2024-06"
+    ],
+    "candidate_grids": "Reuse the six pair k values, sixteen (k_o,k_s) values, and seven joint-scale configurations without extension.",
+    "objectives": [
+      "Mean loss per match",
+      "Mean of within-tournament mean losses"
+    ],
+    "sequential_selection": "Select k_p under each objective, freeze that value for its player grid, and let overall records inherit the selected k_o. Reuse candidate forecasts when selected k_p agrees.",
+    "fixed": "Logistic C=1; overall k_s=1e9; player-adjustment weight=1; joint fitting objective, penalty, solver, and convergence; data, cutoffs, updating, and scoring.",
+    "tie_rule": "First candidate in original grid order.",
+    "selection_boundary": "Save both selections before opening October for forecasts or scoring later periods. Historical evaluation and October never select settings.",
+    "evaluation": "Rerun only models whose settings differ; reuse saved original predictions for unchanged models. July 2024-September 2026 is primary; January 2025-September 2026 overlaps; October fits are frozen before October 1.",
+    "precision": "Historical probabilities and losses independently rounded to six decimals as in the paper; October probabilities use full precision.",
+    "uncertainty": "Existing paired four-month historical blocks and independent-tournament October bootstrap, 5000 draws, seed 20261011; conditional on selection.",
+    "publication": "Full candidate scores, selections, aggregate evaluation comparisons, report and provenance are saved in results/tuning_objective/ for publication; per-match files remain in the external workspace."
   }
 }

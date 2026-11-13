@@ -4,9 +4,18 @@ data/*
 data/unified/*
 !data/unified/matches.csv.gz
 !data/unified/matches_oct2026_holdout.csv.gz
-# Working data and generated outputs belong in PTCG_WORK_DIR outside the repository.
+# Working data and generated outputs normally belong in PTCG_WORK_DIR.
+# Keep the compact published tuning-objective result bundle, not prediction files.
 figures/
-results/
+results/*
+!results/tuning_objective/
+results/tuning_objective/*
+!results/tuning_objective/validation_scores.csv
+!results/tuning_objective/selection.json
+!results/tuning_objective/evaluation_scores.csv
+!results/tuning_objective/summary.json
+!results/tuning_objective/report.txt
+!results/tuning_objective/manifest.json
 raw/
 private/
 __pycache__/

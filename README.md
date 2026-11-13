@@ -1,6 +1,6 @@
 # Pokémon TCG forecasting
 
-This repository reproduces the numerical analyses, six tables, and four figures in *Forecasting Pokémon TCG Match Outcomes Using Deck Archetypes and Player Records*. It compares five probability models on the same matches and information cutoffs, then examines history depth, scoring, calibration, record weights, and update frequency.
+This repository reproduces the numerical analyses, six tables, and four figures in *Forecasting Pokémon TCG Match Outcomes Using Deck Archetypes and Player Records*. It compares five probability models on the same matches and information cutoffs, then examines history depth, scoring, calibration, record weights, tuning objectives, and update frequency.
 
 Analysis settings are recorded in `config/analysis_protocol.json`; expected paper results and input checksums are in `tests/fixtures/paper_checks.json`. Only the two frozen unified datasets are stored under `data/`. Downloading, joining, de-identification, auditing, modeling, and reporting scripts are included. 
 
@@ -17,7 +17,7 @@ python -m pip install -r requirements.txt
 python scripts/reproduce.py --jobs 2
 ```
 
-The command verifies input checksums and package versions, runs the current tests, fits the models, performs supporting analyses, regenerates tables and figures, and checks the results against the saved paper reference. It runs 19 dependent jobs. Use `--jobs 1` to reduce simultaneous memory use. Allow several gigabytes of working space for predictions and intermediate results. Numerical fitting time depends on the machine.
+The command verifies input checksums and package versions, runs the current tests, fits the models, performs supporting analyses, regenerates tables and figures, and checks the results against the saved paper reference. It runs 20 dependent jobs. Use `--jobs 1` to reduce simultaneous memory use. Allow several gigabytes of working space for predictions and intermediate results. Numerical fitting time depends on the machine.
 
 By default, working files go to `../ptcg-forecast-work/`, beside the repository. Set `PTCG_WORK_DIR` to an absolute directory outside the repository to choose another location. Each analysis run refits the models and overwrites generated results there, leaving both input tables and the frozen test reference untouched. Logs, commands, source/input hashes, package versions, timing, and job status are written to `work/results/full_october_2026_run/manifest.json`. A failed job stops dependent work; its named `.log` contains the error. The runner uses one numerical-library thread per process and a noninteractive plotting backend.
 
@@ -29,7 +29,7 @@ python scripts/run_tests.py
 python scripts/verify_reproduction.py
 ```
 
-The last command requires completed outputs. It compares dataset counts and the five models' historical, later-period, and October scores with the frozen reference, checks all six table fragments exactly, and checks the Elo and weight-selection results. It also requires the history-depth reconciliation checks, October outcome-exclusion check, and four figure files. Floating-point summaries use an absolute tolerance of `1e-10`; table values must match exactly. Figure hashes are recorded, but cross-platform raster identity is not required.
+The last command requires completed outputs. It compares dataset counts and the five models' historical, later-period, and October scores with the frozen reference, checks all six table fragments exactly, and checks the Elo, weight-selection, and tuning-objective results. It also requires the history-depth reconciliation checks, October outcome-exclusion check, and four figure files. Floating-point summaries use an absolute tolerance of `1e-10`; table values must match exactly. Figure hashes are recorded, but cross-platform raster identity is not required.
 
 ## Inputs and eligibility
 
@@ -122,6 +122,16 @@ Initial fitting uses records before April 1, 2024. Core smoothing and joint-mode
 
 Core tuning minimizes match-weighted log loss. The logistic penalty is fixed, and overall records inherit smoothing from the archetype-specific model. The supporting Elo benchmark selects settings using tournament-weighted validation loss and successive month-start snapshots. Joint recalibration is fitted on July–December 2024 forecasts and then frozen for the later period and October.
 
+A sensitivity check scores the original candidate grids under both match-weighted and tournament-weighted validation loss. Both objectives select pair smoothing 50, player smoothing `(20, 50)`, and joint scales `(0.28, 0.45, 0.14)`. The fixed logistic baseline and inherited overall-record settings therefore also remain unchanged. No later-period forecasts require refitting; saved forecast checksums and the frozen paper reference verify the reused results. Agreement is limited to the tested candidate sets and does not establish globally optimal settings.
+
+To run this check alone after the main forecast files and paper ledger exist:
+
+```sh
+python scripts/tuning_objective_sensitivity.py
+```
+
+All 29 candidate scores, selections, evaluation scores, comparisons, and provenance are included in `results/tuning_objective/`. Regenerated outputs and per-match validation audit arrays go to `work/results/tuning_objective/`. Add `--publish-results` to refresh the compact repository bundle after a completed check. Selection is saved before later-period forecast files are read. If a future run selects different settings, the script stops before reusing baseline scores; those models would require new evaluation forecasts.
+
 ## Models and supporting experiments
 
 | Paper model | Script | Settings |
@@ -141,6 +151,7 @@ Supporting analyses are limited to those used in the current paper:
 - `rating_fresh_comparison.py` and `card_only_fresh_check.py`: tournament versus monthly updates for archetype-specific and pair records, respectively. Evaluation ends in September. Events are ordered by recorded start date and identifier; exact completion order is unavailable.
 - `history_depth_analysis.py`: unchanged forecasts grouped by the smaller of the two players' prior match counts: 0, 1–9, 10–49, and 50+. Counts exclude the entire forecast month and are outcome-independent. Additional outputs distinguish one unseen player from two. Unseen means absent from the eligible records, not inexperienced.
 - `player_record_weight_sensitivity.py`: adjustment weights 0, 0.5, 0.75, 1, 1.25, and 1.5. April–June validation selects weight 1 before evaluation or loading October. Weights 0 and 1 reconcile with the pair and overall-record models. Smoothing is unchanged.
+- `tuning_objective_sensitivity.py`: compares the existing six pair, sixteen player-smoothing, and seven joint-scale candidates under both validation objectives, preserving sequential selection and inherited overall smoothing. All selected settings agree, so existing evaluation forecasts and comparisons are verified and reused.
 - `check_ps_fresh_equivalence.py`: verifies that the vectorized count implementation, when updated monthly, reproduces all 926,811 saved archetype-specific forecasts to rounding precision.
 
 `match_data.py` and `score_utils.py` contain shared encodings, counts, and paired scoring utilities. Saved filenames and result keys retain some earlier naming for numerical continuity: `M1` means logistic baseline, `Card-only` means archetype-pair, `Overall` or `Overall-record control` means overall records, and `Player-Skill` means archetype-specific records. That last key is not a claim that the model directly measures skill.
@@ -157,7 +168,7 @@ Historical predictions and losses are saved independently to six decimal places;
 
 ## Outputs and paper mapping
 
-In the table below, `work/` denotes the external workspace, normally `../ptcg-forecast-work/`. Only the unified input tables are kept in the repository as datasets. The protocol under `config/` and compact expected values under `tests/fixtures/` are configuration and test metadata. Generated tables, predictions, logs, audits, and figures stay in the external workspace.
+In the table below, `work/` denotes the external workspace, normally `../ptcg-forecast-work/`. Only the unified input tables are kept in the repository as match datasets. The protocol under `config/` and compact expected values under `tests/fixtures/` are configuration and test metadata. Generated predictions, logs, per-match audits, tables, and figures stay in the external workspace. The compact tuning-objective result bundle is also included under `results/tuning_objective/` for publication.
 
 | Paper content | Generated artifact |
 |---|---|
@@ -169,6 +180,7 @@ In the table below, `work/` denotes the external workspace, normally `../ptcg-fo
 | Figure 4: sharpness and calibration | `work/figures/journal_sharpness_calibration.png` |
 | History descriptors, group scores, comparisons and shared bootstrap draws | `work/results/history_depth/` |
 | Weight selection, full-precision predictions, comparisons and report | `work/results/player_record_weight/` |
+| Tuning-objective candidate scores, selections, unchanged evaluation scores and report | `results/tuning_objective/`; regenerated in `work/results/tuning_objective/` |
 | Supporting Elo, recalibration and update-frequency results | `work/results/FINAL_rating_*.csv`, `FINAL_posthoc_calibration.csv`, `FINAL_cardonly_fresh_check.csv` |
 | Verification result | `work/results/full_october_2026_run/reproduction_verification.json` |
 

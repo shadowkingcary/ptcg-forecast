@@ -1,0 +1,63 @@
+{
+  "started_utc": "2026-11-12T02:25:21.329124+00:00",
+  "selection_saved_utc": "2026-11-12T02:25:31.338545+00:00",
+  "completed_utc": "2026-11-12T02:25:31.896090+00:00",
+  "input_sha256": {
+    "data/unified/matches.csv.gz": "ae985e0d44ce4a942477894fced80306f854091c22a2768acc16fb170819e882",
+    "data/unified/matches_oct2026_holdout.csv.gz": "5e6cf7e4b74220fb42f4f1cda72e0b369263a8a9824b59c3813ad6d3d78f7169"
+  },
+  "source_sha256": {
+    "scripts/tuning_objective_sensitivity.py": "ffcefc8e0898168cca436a9df988aa26a5ac4f9e6553bae5df7bd98025950304",
+    "config/analysis_protocol.json": "c17d2d73e24b06c310505f9375e1a3bca57f844375e341c63e2056a865f6aa36",
+    "tests/test_tuning_objective_sensitivity.py": "895e7b31f9188a6008e374c505b699702541081547d43746292229ac97468a8f",
+    "scripts/archetype_pair.py": "43c8893678aeb25dc8c95810ebcf90562ad70efec00fd7ec1b5604ce24db0896",
+    "scripts/player_records.py": "c610caabd3119d35c700c762161ef74d2d929cf10ab7377ae0bae53fd2be079e",
+    "scripts/joint_hierarchical_model.py": "73a0339935f7f124229ffc81910926fb02f4573f194a72e7dfba0f6c08bef762",
+    "scripts/match_data.py": "ec251cdea97c46457a0b598faf274104891c7163f0cce33540523ae39c481762",
+    "scripts/logistic_baseline.py": "9e84b427cef2869b17992c0e5d5a03aa1ab217319cbcafe64fad4508a1e79d57",
+    "scripts/unified_data.py": "9a37d345c72a5a7300776e1b82ce388e0878c7e56ebf5854f89be50eeafe0e4a",
+    "scripts/project_paths.py": "d42798ed7b36340e98fb655ac8a768f6c4ca835ecec35a463375ab36df53e781",
+    "scripts/playerskill_general_only.py": "f4f8d91298815ca96159b951851868ac852ceaa077d14200108acc4cc6db4e99",
+    "scripts/verify_reproduction.py": "6b7b4abb370237762f0152b1cf69db204efc191549b8fc1f1484d5e3e5535e88"
+  },
+  "protocol": {
+    "question": "Do selections and later-period comparisons change when the original validation grids use equal-tournament rather than equal-match loss?",
+    "training": "Fixed history strictly before April 1, 2024.",
+    "validation": [
+      "2024-04",
+      "2024-05",
+      "2024-06"
+    ],
+    "candidate_grids": "Reuse the six pair k values, sixteen (k_o,k_s) values, and seven joint-scale configurations without extension.",
+    "objectives": [
+      "Mean loss per match",
+      "Mean of within-tournament mean losses"
+    ],
+    "sequential_selection": "Select k_p under each objective, freeze that value for its player grid, and let overall records inherit the selected k_o. Reuse candidate forecasts when selected k_p agrees.",
+    "fixed": "Logistic C=1; overall k_s=1e9; player-adjustment weight=1; joint fitting objective, penalty, solver, and convergence; data, cutoffs, updating, and scoring.",
+    "tie_rule": "First candidate in original grid order.",
+    "selection_boundary": "Save both selections before opening October for forecasts or scoring later periods. Historical evaluation and October never select settings.",
+    "evaluation": "Rerun only models whose settings differ; reuse saved original predictions for unchanged models. July 2024-September 2026 is primary; January 2025-September 2026 overlaps; October fits are frozen before October 1.",
+    "precision": "Historical probabilities and losses independently rounded to six decimals as in the paper; October probabilities use full precision.",
+    "uncertainty": "Existing paired four-month historical blocks and independent-tournament October bootstrap, 5000 draws, seed 20261011; conditional on selection.",
+    "publication": "Full candidate scores, selections, aggregate evaluation comparisons, report and provenance are saved in results/tuning_objective/ for publication; per-match files remain in the external workspace."
+  },
+  "packages": {
+    "numpy": "2.5.4",
+    "scipy": "1.18.1",
+    "scikit-learn": "1.9.1"
+  },
+  "output_sha256": {
+    "selection.json": "a9a25a9c1c62c05a6f05199e9bcf8e24c1cc9e87df160290e455351a832d1e80",
+    "validation_scores.csv": "a14e2c5b9576a16e34984d3d00bbea4c9fdfa51d9900e495aa045e40da97f791",
+    "evaluation_scores.csv": "b9c0807517f4453bb4b5ed70edd5fddebef37d3b0712e0b4b403ad8215d08f1a",
+    "summary.json": "87975e90ca7bfc0f24626ad5a6333b49db2b4645dae7eec2a82d9e8e004bde3f",
+    "report.txt": "d20b7a087e4a2b4ef60b845a1dccde753f657b1621397efcf6d87c318ed36037"
+  },
+  "external_validation_audit_sha256": {
+    "validation_predictions.npz": "4e496f3df1a5dcae081985d91f1d973d1aaf29812bef28089930f48c72337ae3",
+    "validation_rows.csv.gz": "3570eb94c187f6afd0e49c8c0ae38246470e0046fc9ad5ede66932ec521b671f"
+  },
+  "evaluation_refits": 0,
+  "passed": true
+}

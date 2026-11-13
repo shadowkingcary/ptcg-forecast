@@ -41,10 +41,11 @@ def main():
     add('ledger','summarize_full_october',['logistic','pair','pooled','overall','joint','october'])
     add('history_depth','history_depth_analysis',['ledger'])
     add('weights','player_record_weight_sensitivity',['ledger'])
+    add('tuning_objective','tuning_objective_sensitivity',['ledger'])
     add('tables','render_journal_tables',['history_depth','calibration','player_updates','pair_updates'])
     add('figures','journal_figures',['history_depth'])
     add('history_figure','history_depth_figures',['history_depth'])
-    add('verification','verify_reproduction',['tables','figures','history_figure','weights','elo','monthly_equivalence'])
+    add('verification','verify_reproduction',['tables','figures','history_figure','weights','tuning_objective','elo','monthly_equivalence'])
     source_paths=[*sorted((ROOT/'scripts').glob('*.py')),*sorted((ROOT/'tests').glob('*.py')),PROTOCOL,REFERENCE,ROOT/'requirements.txt']
     source_hashes={artifact_label(p):sha(p) for p in source_paths}
     manifest={'started_utc':now(),'work_directory':str(WORK),'python':sys.version,'packages':{p:importlib.metadata.version(p) for p in ['numpy','scipy','scikit-learn','matplotlib']},

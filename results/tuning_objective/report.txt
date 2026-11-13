@@ -1,0 +1,48 @@
+Tuning-objective sensitivity check
+
+Training: fixed history before April 1, 2024.
+Validation: April-June 2024; 76,738 matches in 507 tournaments.
+No evaluation-period or October outcomes selected settings.
+
+Selected settings (match weighting / tournament weighting):
+  logistic: {'C': 1.0} / {'C': 1.0}
+  pair: {'k_p': 50} / {'k_p': 50}
+  overall: {'k_p': 50, 'k_o': 20, 'k_s': 1000000000.0} / {'k_p': 50, 'k_o': 20, 'k_s': 1000000000.0}
+  archetype_specific: {'k_p': 50, 'k_o': 20, 'k_s': 50} / {'k_p': 50, 'k_o': 20, 'k_s': 50}
+  joint: {'scales': [0.28, 0.45, 0.14]} / {'scales': [0.28, 0.45, 0.14]}
+
+Candidate forecasts evaluated: 29.
+The logistic penalty was fixed. Overall records inherited player smoothing.
+The player-adjustment coefficient remained one. Fitting objectives and update rules did not change.
+
+No selected settings changed. No historical or October forecasts required refitting.
+The existing forecast hashes and all five models in all three scoring periods match the frozen paper reference.
+All reported scores, intervals, and conclusions are unchanged.
+
+Evaluation scores (identical under the two selections):
+period,model,tournament_log_loss,score_change
+primary,logistic,0.687591047,0
+primary,pair,0.682405345,0
+primary,overall,0.664820154,0
+primary,archetype_specific,0.664577283,0
+primary,joint,0.662062161,0
+later,logistic,0.687779233,0
+later,pair,0.682414592,0
+later,overall,0.664607900,0
+later,archetype_specific,0.664325266,0
+later,joint,0.662039580,0
+october,logistic,0.685602973,0
+october,pair,0.676134686,0
+october,overall,0.660485343,0
+october,archetype_specific,0.661198217,0
+october,joint,0.657270056,0
+
+Interpretation limits:
+Agreement applies only to the original candidate grids, with stable first-in-grid tie handling.
+Some selected values lie at grid boundaries. This check does not establish globally optimal hyperparameters.
+The unchanged forecasts are reused evidence, not an independent validation or a new holdout.
+Existing confidence intervals remain conditional on the selected model settings.
+
+See validation_scores.csv for every candidate and both objectives; selection.json for the exact settings;
+evaluation_scores.csv and summary.json for all evaluation scores and existing comparisons;
+manifest.json for input, code, output, and saved-forecast checksums.

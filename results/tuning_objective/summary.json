@@ -1,0 +1,424 @@
+{
+  "changed_models": [],
+  "refitted_evaluation_models": [],
+  "reason": "Both selection objectives reproduce the original settings for every main model.",
+  "all_reported_forecasts_and_comparisons_unchanged": true,
+  "not_an_independent_replication": true,
+  "scope": "Agreement within the original finite grids; not global optimality or evidence for untested grids.",
+  "evaluation": [
+    {
+      "period": "primary",
+      "model": "logistic",
+      "match_selected_tournament_log_loss": 0.6875910472681969,
+      "tournament_selected_tournament_log_loss": 0.6875910472681969,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6894347846184389,
+      "brier": 0.24815152527283044,
+      "calibration_rmse": 0.00980690273560238,
+      "sharpness_mean_absolute_distance": 0.04112104551952879
+    },
+    {
+      "period": "primary",
+      "model": "pair",
+      "match_selected_tournament_log_loss": 0.6824053448323452,
+      "tournament_selected_tournament_log_loss": 0.6824053448323452,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6832377971528175,
+      "brier": 0.2451109539263764,
+      "calibration_rmse": 0.008285360507414281,
+      "sharpness_mean_absolute_distance": 0.04792668894736899
+    },
+    {
+      "period": "primary",
+      "model": "overall",
+      "match_selected_tournament_log_loss": 0.6648201538042615,
+      "tournament_selected_tournament_log_loss": 0.6648201538042615,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6661135981974751,
+      "brier": 0.23687446726285855,
+      "calibration_rmse": 0.006271122866929457,
+      "sharpness_mean_absolute_distance": 0.09104530575705294
+    },
+    {
+      "period": "primary",
+      "model": "archetype_specific",
+      "match_selected_tournament_log_loss": 0.6645772825214015,
+      "tournament_selected_tournament_log_loss": 0.6645772825214015,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6661563383429848,
+      "brier": 0.23688794978933558,
+      "calibration_rmse": 0.008504185859741099,
+      "sharpness_mean_absolute_distance": 0.09546141970693053
+    },
+    {
+      "period": "primary",
+      "model": "joint",
+      "match_selected_tournament_log_loss": 0.6620621613123645,
+      "tournament_selected_tournament_log_loss": 0.6620621613123645,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6645387089492896,
+      "brier": 0.23608345341775078,
+      "calibration_rmse": 0.015448481319890555,
+      "sharpness_mean_absolute_distance": 0.10755062275372218
+    },
+    {
+      "period": "later",
+      "model": "logistic",
+      "match_selected_tournament_log_loss": 0.6877792334476347,
+      "tournament_selected_tournament_log_loss": 0.6877792334476347,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6895064616789187,
+      "brier": 0.24819085208873165,
+      "calibration_rmse": 0.009924626470194467,
+      "sharpness_mean_absolute_distance": 0.04065519314241837
+    },
+    {
+      "period": "later",
+      "model": "pair",
+      "match_selected_tournament_log_loss": 0.6824145924780993,
+      "tournament_selected_tournament_log_loss": 0.6824145924780993,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6835032283432987,
+      "brier": 0.2452391066664745,
+      "calibration_rmse": 0.007761366854324934,
+      "sharpness_mean_absolute_distance": 0.04797314673124318
+    },
+    {
+      "period": "later",
+      "model": "overall",
+      "match_selected_tournament_log_loss": 0.6646078995418305,
+      "tournament_selected_tournament_log_loss": 0.6646078995418305,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6661749285229905,
+      "brier": 0.2368990624839268,
+      "calibration_rmse": 0.005979590064342314,
+      "sharpness_mean_absolute_distance": 0.09121426505744336
+    },
+    {
+      "period": "later",
+      "model": "archetype_specific",
+      "match_selected_tournament_log_loss": 0.6643252657559787,
+      "tournament_selected_tournament_log_loss": 0.6643252657559787,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6661770063565025,
+      "brier": 0.23689325414188608,
+      "calibration_rmse": 0.008375581609847358,
+      "sharpness_mean_absolute_distance": 0.09558379916460415
+    },
+    {
+      "period": "later",
+      "model": "joint",
+      "match_selected_tournament_log_loss": 0.6620395801417934,
+      "tournament_selected_tournament_log_loss": 0.6620395801417934,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6644615731644247,
+      "brier": 0.23605037137410587,
+      "calibration_rmse": 0.015135922019295398,
+      "sharpness_mean_absolute_distance": 0.10744573397417292
+    },
+    {
+      "period": "october",
+      "model": "logistic",
+      "match_selected_tournament_log_loss": 0.6856029730035127,
+      "tournament_selected_tournament_log_loss": 0.6856029730035127,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6873346271880139,
+      "brier": 0.2471148973934375,
+      "calibration_rmse": 0.003862395347255296,
+      "sharpness_mean_absolute_distance": 0.03908819049550067
+    },
+    {
+      "period": "october",
+      "model": "pair",
+      "match_selected_tournament_log_loss": 0.6761346859750506,
+      "tournament_selected_tournament_log_loss": 0.6761346859750506,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6781083825500771,
+      "brier": 0.24263769174822272,
+      "calibration_rmse": 0.010634469014811913,
+      "sharpness_mean_absolute_distance": 0.060423481011719744
+    },
+    {
+      "period": "october",
+      "model": "overall",
+      "match_selected_tournament_log_loss": 0.6604853428481883,
+      "tournament_selected_tournament_log_loss": 0.6604853428481883,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6608311191639042,
+      "brier": 0.23435673794631687,
+      "calibration_rmse": 0.0072575508352865185,
+      "sharpness_mean_absolute_distance": 0.09966487886922805
+    },
+    {
+      "period": "october",
+      "model": "archetype_specific",
+      "match_selected_tournament_log_loss": 0.6611982167956639,
+      "tournament_selected_tournament_log_loss": 0.6611982167956639,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.6610081072044902,
+      "brier": 0.23445250442376941,
+      "calibration_rmse": 0.009352801915968113,
+      "sharpness_mean_absolute_distance": 0.10477561857472807
+    },
+    {
+      "period": "october",
+      "model": "joint",
+      "match_selected_tournament_log_loss": 0.6572700560404222,
+      "tournament_selected_tournament_log_loss": 0.6572700560404222,
+      "score_change": 0.0,
+      "match_weighted_log_loss": 0.658201473363588,
+      "brier": 0.2330956432294666,
+      "calibration_rmse": 0.009298691576073824,
+      "sharpness_mean_absolute_distance": 0.11114177518486362
+    }
+  ],
+  "historical_comparisons": {
+    "primary": {
+      "M1 vs Constant": {
+        "gain_ci": [
+          0.005556133291748769,
+          0.0050615527522842405,
+          0.006101965351040991
+        ],
+        "tournaments_better": 3857,
+        "fraction_tournaments_better": 0.6608978752570254,
+        "match_weighted_gain": 0.0037123959415063597
+      },
+      "Card-only vs M1": {
+        "gain_ci": [
+          0.0051857024358517405,
+          0.003176760266148006,
+          0.006196379372465169
+        ],
+        "tournaments_better": 3850,
+        "fraction_tournaments_better": 0.659698423577793,
+        "match_weighted_gain": 0.006196987465621368
+      },
+      "Overall vs Card-only": {
+        "gain_ci": [
+          0.01758519102808361,
+          0.01654091346814869,
+          0.019146098562705143
+        ],
+        "tournaments_better": 4643,
+        "fraction_tournaments_better": 0.7955791638108294,
+        "match_weighted_gain": 0.01712419895534256
+      },
+      "Player-Skill vs Overall": {
+        "gain_ci": [
+          0.00024287128286014023,
+          4.603571035230339e-05,
+          0.00034612266332608257
+        ],
+        "tournaments_better": 2929,
+        "fraction_tournaments_better": 0.5018848526387937,
+        "match_weighted_gain": -4.274014550971018e-05
+      },
+      "Player-Skill vs Card-only": {
+        "gain_ci": [
+          0.01782806231094375,
+          0.016730829236974647,
+          0.01933418832077043
+        ],
+        "tournaments_better": 4577,
+        "fraction_tournaments_better": 0.7842700479780672,
+        "match_weighted_gain": 0.01708145880983285
+      },
+      "Joint vs Player-Skill": {
+        "gain_ci": [
+          0.0025151212090368715,
+          0.001830923079542879,
+          0.0032571503073283692
+        ],
+        "tournaments_better": 3495,
+        "fraction_tournaments_better": 0.5988690884167238,
+        "match_weighted_gain": 0.0016176293936951544
+      }
+    },
+    "later": {
+      "M1 vs Constant": {
+        "gain_ci": [
+          0.005367947112310782,
+          0.004871182939604833,
+          0.005774750655433261
+        ],
+        "tournaments_better": 3161,
+        "fraction_tournaments_better": 0.6629614093959731,
+        "match_weighted_gain": 0.003640718881026499
+      },
+      "Card-only vs M1": {
+        "gain_ci": [
+          0.00536464096953556,
+          0.002874706229732025,
+          0.0064812359514005895
+        ],
+        "tournaments_better": 3132,
+        "fraction_tournaments_better": 0.6568791946308725,
+        "match_weighted_gain": 0.006003233335620168
+      },
+      "Overall vs Card-only": {
+        "gain_ci": [
+          0.01780669293626862,
+          0.01648962878359822,
+          0.019321742451617295
+        ],
+        "tournaments_better": 3793,
+        "fraction_tournaments_better": 0.795511744966443,
+        "match_weighted_gain": 0.017328299820308084
+      },
+      "Player-Skill vs Overall": {
+        "gain_ci": [
+          0.00028263378585197157,
+          0.00013960952196185783,
+          0.00039373193590826666
+        ],
+        "tournaments_better": 2422,
+        "fraction_tournaments_better": 0.5079697986577181,
+        "match_weighted_gain": -2.0778335118818565e-06
+      },
+      "Player-Skill vs Card-only": {
+        "gain_ci": [
+          0.018089326722120592,
+          0.016733785204869248,
+          0.019564159457502825
+        ],
+        "tournaments_better": 3735,
+        "fraction_tournaments_better": 0.7833473154362416,
+        "match_weighted_gain": 0.0173262219867962
+      },
+      "Joint vs Player-Skill": {
+        "gain_ci": [
+          0.0022856856141852617,
+          0.001574557756832924,
+          0.003069085288122878
+        ],
+        "tournaments_better": 2850,
+        "fraction_tournaments_better": 0.597734899328859,
+        "match_weighted_gain": 0.0017154331920777237
+      }
+    }
+  },
+  "october_comparisons": {
+    "M1 vs Player-Skill": [
+      -0.024404756207848658,
+      -0.029226369111663035,
+      -0.019076913277399417
+    ],
+    "Card-only vs Player-Skill": [
+      -0.014936469179386336,
+      -0.018841093731095312,
+      -0.010712181943714186
+    ],
+    "Player-Skill vs Player-Skill": [
+      0.0,
+      0.0,
+      0.0
+    ],
+    "Overall-record control vs Player-Skill": [
+      0.0007128739474758974,
+      -0.00024026352192323748,
+      0.0017040168845613417
+    ],
+    "Joint model vs Player-Skill": [
+      0.003928160755241898,
+      0.002054879301886817,
+      0.0058481408191100774
+    ],
+    "Joint model + recal. vs Player-Skill": [
+      0.0038636742033557984,
+      0.002028663288753849,
+      0.005803895941540469
+    ],
+    "Player-Skill vs Card-only": [
+      0.014936469179386336,
+      0.010712181943714186,
+      0.018841093731095312
+    ],
+    "Player-Skill vs Overall-record control": [
+      -0.0007128739474758974,
+      -0.0017040168845613417,
+      0.00024026352192323748
+    ],
+    "Joint model + recal. vs Joint model": [
+      -6.448655188609935e-05,
+      -0.0008189630969297384,
+      0.0006773336455036998
+    ]
+  },
+  "source_sha256": {
+    "FINAL_cardonly_vs_playerskill_predictions.csv": "59b3afbd132bb7dc40478dd65b6c99006809bba4d4559454c5daf3a029bc4dd7",
+    "FINAL_hier_full_predictions.csv": "9bf6cd02a2442daaa2aab2bb20408e9558869112f378ca4926b3ed47d6fac4a0",
+    "FINAL_joint_predictions.csv": "9d77ac5e3d359c394c971fdc018729b61fa2fd4525a997c3feb8d2abcebd1078",
+    "FINAL_october_predictions.csv": "225c624c3638a2677add8e998aaa1aa6144fe23b9e78bd2249ac34813c2bdfae",
+    "FINAL_playerskill_generalonly_predictions.csv": "8626708b89c0b14deb9e9ee596270f6aff56a65a4486af4ad00255becf343534",
+    "FINAL_playerskill_pooled_predictions.csv": "6f293933d99a8c3f266e31c46a52afa3af6f55066253427c1a59f96041109be3"
+  },
+  "paper_results_sha256": "c86c47cc84aeccbe2552f237bab140fcda63aa8d3b92900f693e80c4621b3dec",
+  "frozen_reference_verified": true,
+  "selection": {
+    "training_before": "2024-04-01",
+    "training_matches": 66474,
+    "validation_months": [
+      "2024-04",
+      "2024-05",
+      "2024-06"
+    ],
+    "validation_matches": 76738,
+    "validation_tournaments": 507,
+    "settings": {
+      "match": {
+        "logistic": {
+          "C": 1.0
+        },
+        "pair": {
+          "k_p": 50
+        },
+        "overall": {
+          "k_p": 50,
+          "k_o": 20,
+          "k_s": 1000000000.0
+        },
+        "archetype_specific": {
+          "k_p": 50,
+          "k_o": 20,
+          "k_s": 50
+        },
+        "joint": {
+          "scales": [
+            0.28,
+            0.45,
+            0.14
+          ]
+        }
+      },
+      "tournament": {
+        "logistic": {
+          "C": 1.0
+        },
+        "pair": {
+          "k_p": 50
+        },
+        "overall": {
+          "k_p": 50,
+          "k_o": 20,
+          "k_s": 1000000000.0
+        },
+        "archetype_specific": {
+          "k_p": 50,
+          "k_o": 20,
+          "k_s": 50
+        },
+        "joint": {
+          "scales": [
+            0.28,
+            0.45,
+            0.14
+          ]
+        }
+      }
+    },
+    "changed_models": [],
+    "selection_uses_only_initial_training_and_validation": true,
+    "tie_rule": "First candidate in the original grid order."
+  }
+}
